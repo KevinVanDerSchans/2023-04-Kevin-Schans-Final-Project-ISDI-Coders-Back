@@ -1,15 +1,22 @@
 import http from "http";
-import { app } from "./app";
-import debug from "debug";
+import { app } from "./app.js";
+import { dbConnect } from "./db/db.connect.js";
+import createDebug from "debug";
+const debug = createDebug("W9");
 
-const PORT = process.env.PORT || 4500;
+const PORT = process.env.PORT || 2000;
 
 const server = http.createServer(app);
 
-server.on('listening', () => {
-  debug('Listening on port ' + PORT);
-});
+dbConnect()
+  .then((mongoose) => {
+    server.listen(PORT);
+    debug("Conected to db:", mongoose.connection.db.databaseName);
+  })
+  .catch((error) => {
+    server.emit("error", error);
+  });
 
-server.on('error', (error) => {
-  debug(error.message);
+server.on('listening', () => {
+  debug("Listening on port " + PORT);
 });
