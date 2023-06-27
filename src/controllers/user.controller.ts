@@ -19,7 +19,6 @@ export class UserController extends Controller<User> {
     try {
       const password = await AuthServices.hash(req.body.password);
       req.body.password = password;
-      req.body.role = 'user';
       resp.status(201);
       resp.send(await this.repo.create(req.body));
     } catch (error) {
