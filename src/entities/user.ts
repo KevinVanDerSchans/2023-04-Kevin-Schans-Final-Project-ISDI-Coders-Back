@@ -8,5 +8,5 @@ export type User = {
   email: string,
   password: string,
   avatar: Image,
-  danceCourses: DanceCourse[]  
+  danceCourses: DanceCourse[]
 }
