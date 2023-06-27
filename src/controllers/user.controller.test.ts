@@ -24,7 +24,7 @@ describe('Given a UserController class', () => {
 
     test('Then the register method should be used', async () => {
       const controller = new UserController(mockRepo);
-      const mockPassword = 'abcd';
+      const mockPassword = '12345';
       req.body = { password: mockPassword };
       await controller.register(req, res, next);
       expect(res.status).toHaveBeenCalledWith(201);
@@ -33,7 +33,7 @@ describe('Given a UserController class', () => {
 
     test('Then method login should be used', async () => {
       const controller = new UserController(mockRepo);
-      const mockUser = { user: 'Nitin', password: 'abcd' };
+      const mockUser = { user: 'Erik', password: '12345' };
       req.body = mockUser;
       (AuthServices.compare as jest.Mock).mockResolvedValueOnce(true);
       await controller.login(req, res, next);
@@ -43,7 +43,7 @@ describe('Given a UserController class', () => {
   });
 
   describe('When there is an instantiate of error', () => {
-    const error = new HttpError(400, 'Bad request', 'Invalid user or password');
+    const error = new HttpError(400, 'Bad request', 'User or password invalid');
     const mockRepo = {
       search: jest.fn().mockResolvedValue(error),
       post: jest.fn().mockResolvedValue(error),
@@ -62,14 +62,14 @@ describe('Given a UserController class', () => {
       const error = new HttpError(
         400,
         'Bad request',
-        'Invalid user or password'
+        'User or password invalid'
       );
       await controller.login(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });
 
     test('Then the login method should throw a HttpError for an invalid user', async () => {
-      const mockUser = { user: 'Marco', password: 'abcd' };
+      const mockUser = { user: 'Erik', password: '12345' };
       req.body = mockUser;
       (mockRepo.search as jest.Mock).mockResolvedValueOnce([]);
       await controller.login(req, res, next);
@@ -78,8 +78,8 @@ describe('Given a UserController class', () => {
 
     test('Then the login method should throw a HttpError for an invalid password', async () => {
       const controller = new UserController(mockRepo);
-      const mockUser = { userName: 'Nitin', password: 'abcd' };
-      const mockInvalidUser = { user: 'Nitin', password: 'abce' };
+      const mockUser = { userName: 'Erik', password: '12345' };
+      const mockInvalidUser = { user: 'Erik', password: '12345' };
       req.body = mockInvalidUser;
       (mockRepo.search as jest.Mock).mockResolvedValueOnce([mockUser]);
       (AuthServices.compare as jest.Mock).mockResolvedValueOnce(false);
@@ -89,11 +89,11 @@ describe('Given a UserController class', () => {
 
     test('Then the login method should throw a HttpError for an invalid user or password', async () => {
       const controller = new UserController(mockRepo);
-      const mockUser = { user: 'Nitin', password: 'abcd' };
+      const mockUser = { user: 'Erik', password: '12345' };
       const error = new HttpError(
         400,
         'Bad request',
-        'Invalid user or password'
+        'User or password invalid'
       );
       req.body = mockUser;
       (mockRepo.search as jest.Mock).mockResolvedValueOnce([mockUser]);
@@ -109,7 +109,7 @@ describe('Given a UserController class', () => {
       post: jest.fn().mockRejectedValue(error),
     } as unknown as UserRepo;
     const req = {
-      body: { password: 'abcd' },
+      body: { password: '12345' },
     } as unknown as Request;
     const res = {
       send: jest.fn(),

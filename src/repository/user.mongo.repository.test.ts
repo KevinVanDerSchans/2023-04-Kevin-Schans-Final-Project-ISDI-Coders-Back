@@ -42,7 +42,7 @@ describe('Given the UserRepo class', () => {
         exec,
       });
 
-      const result = await repo.update(mockId, mockData);
+      const result = await repo.patch(mockId, mockData);
 
       expect(UserModel.findByIdAndUpdate).toHaveBeenCalledWith(
         mockId,
@@ -61,13 +61,13 @@ describe('Given the UserRepo class', () => {
       });
 
       try {
-        await repo.update(mockId, mockData);
+        await repo.patch(mockId, mockData);
         expect(true).toBe(false);
       } catch (error: any) {
         expect(error).toBeInstanceOf(HttpError);
         expect(error.status).toBe(404);
         expect(error.statusMessage).toBe('Not found');
-        expect(error.message).toBe('It is a bad id for update');
+        expect(error.message).toBe('This is not a valid ID for the query');
       }
     });
   });
