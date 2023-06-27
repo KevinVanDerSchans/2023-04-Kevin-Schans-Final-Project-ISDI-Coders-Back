@@ -1,3 +1,5 @@
+import { Image } from "../types/image"
+
 export type DanceCourse = {
   id: string,
   courseName: string,
@@ -6,4 +8,5 @@ export type DanceCourse = {
   totalClasses: number,
   initialDescription: string,
   largeDescription: string,
+  image: Image,
 }

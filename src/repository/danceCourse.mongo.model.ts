@@ -1,29 +1,34 @@
-import { Schema, SchemaTypes, model } from 'mongoose';
-import { User } from '../entities/user.js';
+import { Schema, model } from 'mongoose';
+import { DanceCourse } from '../entities/danceCourse';
 
-const userSchema = new Schema<User>({
-  userName: {
+
+const danceCourseSchema = new Schema<DanceCourse>({
+  courseName: {
     type: String,
     required: true,
     unique: true,
-    trim: true,
   },
-  role: {
+  level: {
     type: String,
     required: true,
   },
-  email: {
+  priceCourse: {
     type: String,
     required: true,
-    unique: true,
-    trim: true,
   },
-  password: {
+  totalClasses: {
+    type: Number,
+    required: true,
+  },
+  initialDescription: {
     type: String,
     required: true,
-    trim: true,
   },
-  avatar: {
+  largeDescription: {
+    type: String,
+    required: true,
+  },
+  image: {
     type: {
       urlOriginal: { type: String },
       url: { type: String },
@@ -32,21 +37,16 @@ const userSchema = new Schema<User>({
     },
     required: true,
     unique: true,
-  },
-  danceCourses: [
-    {
-      type: SchemaTypes.ObjectId, ref: 'DanceCourse'
-    }
-  ]
+  }
 });
 
-userSchema.set('toJSON', {
+danceCourseSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject._id;
+    delete returnedObject.__id;
     delete returnedObject.password;
   },
 });
 
-export const UserModel = model('User', userSchema, 'Users');
+export const DanceCourseModel = model('DanceCourse', danceCourseSchema, 'danceCourses');
