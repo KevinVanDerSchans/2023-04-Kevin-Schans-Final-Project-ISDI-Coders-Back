@@ -6,6 +6,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
     unique: true,
+    trim: true,
   },
   role: {
     type: String,
@@ -15,10 +16,12 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
     unique: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
+    trim: true,
   },
   avatar: {
     type: {
