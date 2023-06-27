@@ -1,12 +1,12 @@
 import { UserModel } from './user.mongo.model.js';
 import createDebug from 'debug';
 import { User } from '../entities/user.js';
-import { Repo } from './repo.js';
+import { Repository } from './repository.js';
 import { HttpError } from '../types/http.error.js';
 
 const debug = createDebug('PF:UserRepo');
 
-export class UserRepo implements Repo<User> {
+export class UserRepo implements Repository<User> {
   constructor() {
     debug('Instantiated', UserModel);
   }
@@ -39,7 +39,7 @@ export class UserRepo implements Repo<User> {
     return newUser;
   }
 
-  async patch(id: string, data: Partial<User>): Promise<User> {
+  async update(id: string, data: Partial<User>): Promise<User> {
     const newUser = await UserModel.findByIdAndUpdate(id, data, {
       new: true,
     }).exec();

@@ -1,5 +1,5 @@
-import { PayloadToken } from "../types/payload.token";
-import { AuthServices,  } from "./auth";
+import { PayloadToken } from '../types/payload.token';
+import { AuthServices,  } from './auth';
 import jwt from 'jsonwebtoken';
 
 jest.mock('jsonwebtoken');

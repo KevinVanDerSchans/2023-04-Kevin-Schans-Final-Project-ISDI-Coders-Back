@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import { HttpError } from "../types/http.error.js";
+import { NextFunction, Request, Response } from 'express';
+import { HttpError } from '../types/http.error.js';
 import mongoose, { mongo } from 'mongoose';
-import createDebug from "debug";
-const debug = createDebug("PF");
+import createDebug from 'debug';
+const debug = createDebug('PF');
 
 export const errorHandler = (
   error: Error,
@@ -10,7 +10,7 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  debug("Executed");
+  debug('Executed');
 
   if (error instanceof HttpError) {
     console.error(error.status, error.statusMessage, error.message);
@@ -23,21 +23,21 @@ export const errorHandler = (
   }
 
   if (error instanceof mongoose.Error.ValidationError) {
-    console.error("400 Bad Request", error.message);
+    console.error('400 Bad Request', error.message);
     res.status(400);
-    res.statusMessage = "Bad Request";
+    res.statusMessage = 'Bad Request';
     res.send({
-      status: "400 Bad Request",
+      status: '400 Bad Request',
     });
     return;
   }
 
   if (error instanceof mongo.MongoServerError) {
-    console.error("406 Not accepted", error.message);
+    console.error('406 Not accepted', error.message);
     res.status(406);
-    res.statusMessage = "Not accepted";
+    res.statusMessage = 'Not accepted';
     res.send({
-      status: "406 Not accepted",
+      status: '406 Not accepted',
     });
     return;
   }

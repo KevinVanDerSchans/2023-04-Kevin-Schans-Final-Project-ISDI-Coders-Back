@@ -1,12 +1,12 @@
-import express from "express";
-import cors from "cors";
-import morgan from "morgan";
-import createDebug from "debug";
-const debug = createDebug("PF: App");
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import createDebug from 'debug';
+const debug = createDebug('PF: App');
 
 export const app = express();
 
-debug("Loaded express App...");
+debug('Loaded express App...');
 
 const corsOptions = {
   origin: '*',

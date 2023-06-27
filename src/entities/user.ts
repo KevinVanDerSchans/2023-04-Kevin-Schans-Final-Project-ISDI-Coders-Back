@@ -1,9 +1,9 @@
-import { DanceCourse } from "./danceCourse.js"
-import { Image } from "../types/image.js"
+import { DanceCourse } from './danceCourse.js'
+import { Image } from '../types/image.js'
 
 export type User = {
   id: string,
-  role: "user" | "admin",
+  role: 'user' | 'admin',
   userName: string,
   email: string,
   password: string,
