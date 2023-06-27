@@ -12,6 +12,6 @@ const controller = new UserController(repo);
 
 export const userRouter = createRouter();
 
-userRouter.get('/', controller.query.bind(controller));
+userRouter.get('/', controller.getAll.bind(controller));
 userRouter.post('/register', controller.register.bind(controller));
 userRouter.patch('/login', controller.login.bind(controller));
