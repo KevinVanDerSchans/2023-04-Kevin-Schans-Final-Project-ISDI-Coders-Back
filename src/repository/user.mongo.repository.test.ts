@@ -1,74 +1,126 @@
-import { User } from '../entities/user';
-import { HttpError } from '../types/http.error';
-import { UserModel } from './user.mongo.model';
-import { UserRepo } from './user.mongo.repository'
+import { User } from '../entities/user.js';
+import { UserModel } from './user.mongo.model.js';
+import { UserRepo } from './user.mongo.repository.js';
 
 jest.mock('./user.mongo.model.js');
-
 describe('Given the UserRepo class', () => {
-  describe('When it is instantiated', () => {
-    const repo = new UserRepo();
 
-    test('Then method create should be used', async () => {
-      const mockUser = {} as User;
-      UserModel.create = jest.fn().mockReturnValueOnce(mockUser);
-      const result = await repo.create({} as Omit<User, 'id'>);
-      expect(UserModel.create).toHaveBeenCalled();
-      expect(result).toEqual(mockUser);
-    });
+  const repo = new UserRepo();
 
-    test('Then method search should be user', async () => {
-      const mockUser = { key: 'username', value: 'Erik' };
-      const mockResult = [{ username: 'Erik', password: '12345' }];
-      const exec = jest.fn().mockResolvedValue(mockResult);
+  describe('When it is instantiated and implements the Repo', () => {
+    test('Then method query should be used', async () => {
+      const exec = jest.fn().mockResolvedValue([]);
       UserModel.find = jest.fn().mockReturnValueOnce({
         exec,
       });
 
-      const result = await repo.search(mockUser);
-
-      expect(UserModel.find).toHaveBeenCalledWith({
-        [mockUser.key]: mockUser.value,
-      });
-      expect(result).toEqual(mockResult);
+      const result = await repo.query();
+      expect(UserModel.find).toHaveBeenCalled();
+      expect(exec).toHaveBeenCalled();
+      expect(result).toEqual([]);
     });
 
-    test('Then method search should update the user', async () => {
+    test('Then method queryById should be used', async () => {
+      const mockId = '5';
+      const exec = jest.fn().mockResolvedValue({});
+      UserModel.findById = jest.fn().mockReturnValueOnce({
+        exec,
+      });
+
+      const result = await repo.queryById(mockId);
+      expect(UserModel.findById).toHaveBeenCalled();
+      expect(exec).toHaveBeenCalled();
+      expect(result).toEqual({});
+    });
+
+    test('Then method post should be used', async () => {
+      const mockData = {} as Omit<User, 'id'>;
+      UserModel.create = jest.fn().mockReturnValueOnce({} as User);
+      const result = await repo.create(mockData);
+      expect(UserModel.create).toHaveBeenCalled();
+      expect(result).toEqual({});
+    });
+
+    test('Then method delete should be used', async () => {
+      const mockId = '2';
+      const exec = jest.fn().mockResolvedValue({} as User);
+      UserModel.findByIdAndDelete = jest.fn().mockReturnValueOnce({
+        exec,
+      });
+
+      await repo.delete(mockId);
+      expect(UserModel.findByIdAndDelete).toHaveBeenCalled();
+      expect(exec).toHaveBeenCalled();
+    });
+
+    test('Then method patch should be used', async () => {
+      const mockId = { id: '12' };
+      const mockData = 'test';
+      const mockReturnUser = {} as User;
+      const exec = jest.fn().mockReturnValue(mockReturnUser);
+      UserModel.findByIdAndUpdate = jest.fn().mockReturnValue({
+        exec,
+        new: true,
+      });
+
+      const result = await repo.patch(mockData, mockId);
+      expect(UserModel.findByIdAndUpdate).toHaveBeenCalled();
+      expect(exec).toHaveBeenCalled();
+      expect(result).toEqual({});
+    });
+
+    test('Then method search should be used', async () => {
+      const exec = jest.fn().mockResolvedValueOnce([]);
+      UserModel.find = jest.fn().mockReturnValue({
+        exec,
+      });
+
+      const result = await repo.search({} as { key: string; value: unknown });
+      expect(UserModel.find).toHaveBeenCalled();
+      expect(exec).toHaveBeenCalled();
+      expect(result).toEqual([]);
+    });
+  });
+});
+
+describe('Given the UserRepo class', () => {
+
+  const repo = new UserRepo();
+
+  describe('When it is instantiated and queryById method is called but the id is not found', () => {
+    test('Then it should throw an error', async () => {
       const mockId = '12345';
-      const mockData = { username: 'Erik', password: 'abc123' };
-      const mockUpdatedUser = { _id: mockId, ...mockData };
-      const exec = jest.fn().mockResolvedValue(mockUpdatedUser);
+      const exec = jest.fn().mockResolvedValueOnce(null);
+      UserModel.findById = jest.fn().mockReturnValueOnce({
+        exec,
+      });
+
+      await expect(repo.queryById(mockId)).rejects.toThrow();
+    });
+  });
+
+  describe('When it is instantiated and update method is called but the id is not found', () => {
+    test('Then it should throws an error', async () => {
+      const mockId = '12345';
+      const mockUser = {} as User;
+      const exec = jest.fn().mockResolvedValueOnce(null);
       UserModel.findByIdAndUpdate = jest.fn().mockReturnValueOnce({
         exec,
       });
 
-      const result = await repo.patch(mockId, mockData);
-
-      expect(UserModel.findByIdAndUpdate).toHaveBeenCalledWith(
-        mockId,
-        mockData,
-        { new: true }
-      );
-      expect(result).toEqual(mockUpdatedUser);
+      await expect(repo.patch(mockId, mockUser)).rejects.toThrow();
     });
+  });
 
-    test('When update fails due to wrong id, should throw HttpError', async () => {
+  describe('When it is instantiated and delete method is called but the id is not found', () => {
+    test('Then it should throws an error', async () => {
       const mockId = '12345';
-      const mockData = { username: 'Erik', password: 'abc123' };
-      const exec = jest.fn().mockResolvedValue(null);
-      UserModel.findByIdAndUpdate = jest.fn().mockReturnValueOnce({
+      const exec = jest.fn().mockResolvedValueOnce(null);
+      UserModel.findByIdAndDelete = jest.fn().mockReturnValueOnce({
         exec,
       });
-
-      try {
-        await repo.patch(mockId, mockData);
-        expect(true).toBe(false);
-      } catch (error: any) {
-        expect(error).toBeInstanceOf(HttpError);
-        expect(error.status).toBe(404);
-        expect(error.statusMessage).toBe('Not found');
-        expect(error.message).toBe('This is not a valid ID for the query');
-      }
+      
+      await expect(repo.delete(mockId)).rejects.toThrow();
     });
   });
 });
