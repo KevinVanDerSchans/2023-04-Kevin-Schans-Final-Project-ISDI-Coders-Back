@@ -1,4 +1,4 @@
-export interface Repo<T extends { id: string | number }> {
+export interface Repository<T extends { id: string | number }> {
   query: () => Promise<T[]>;
   queryById: (id: T['id']) => Promise<T>;
   search: (query: { key: string; value: unknown }) => Promise<T[]>;

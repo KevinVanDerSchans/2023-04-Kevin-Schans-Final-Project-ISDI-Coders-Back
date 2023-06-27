@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import { user, passwd, db } from '../config.js';
 
 export const dbConnect = () => {
