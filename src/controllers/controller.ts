@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
-import { Repository } from '../repository/repository.js';
-import { ApiResponse } from '../types/response.api.js';
+import { NextFunction, Response, Request } from 'express';
+import { Repository } from '../repository/repository';
+import { ApiResponse } from '../types/response.api';
 
 export abstract class Controller<T extends { id: string | number }> {
-  protected repo!: Repository<T>;
+  public repo!: Repository<T>;
 
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  async query(_req: Request, resp: Response, next: NextFunction) {
     try {
       const items = await this.repo.query();
       const response: ApiResponse = {
@@ -13,43 +13,41 @@ export abstract class Controller<T extends { id: string | number }> {
         page: 1,
         count: items.length,
       };
-      console.log(req.body);
-      res.send(response);
     } catch (error) {
       next(error);
     }
   }
 
-  async getById(req: Request, res: Response, next: NextFunction) {
+  async queryById(req: Request, resp: Response, next: NextFunction) {
     try {
-      res.send(await this.repo.queryById(req.params.id));
+      resp.send(await this.repo.queryById(req.params.id));
     } catch (error) {
       next(error);
     }
   }
 
-  async post(req: Request, res: Response, next: NextFunction) {
+  async update(req: Request, resp: Response, next: NextFunction) {
     try {
-      res.status(201);
-      res.send(await this.repo.create(req.body));
+      resp.status(202);
+      resp.send(await this.repo.patch(req.params.id, req.body));
     } catch (error) {
       next(error);
     }
   }
 
-  async patch(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, resp: Response, next: NextFunction) {
     try {
-      res.status(202);
-      res.send(await this.repo.update(req.params.id, req.body));
+      resp.status(201);
+      resp.send(await this.repo.create(req.body));
     } catch (error) {
       next(error);
     }
   }
 
-  async deleteById(req: Request, res: Response, next: NextFunction) {
+  async delete(req: Request, resp: Response, next: NextFunction) {
     try {
-      res.status(204);
-      res.send(await this.repo.delete(req.params.id));
+      resp.status(204);
+      resp.send(await this.repo.delete(req.params.id));
     } catch (error) {
       next(error);
     }
