@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import createDebug from "debug";
-const debug = createDebug("W9: App");
+const debug = createDebug("PF: App");
 
 export const app = express();
 
