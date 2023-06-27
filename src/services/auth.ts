@@ -34,3 +34,5 @@ export class AuthServices {
     return compare(value, hash);
   }
 }
+export { PayloadToken };
+
