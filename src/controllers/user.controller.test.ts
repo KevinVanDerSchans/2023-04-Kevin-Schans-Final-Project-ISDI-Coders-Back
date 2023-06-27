@@ -7,9 +7,9 @@ import { UserRepo } from '../repository/user.mongo.repository.js';
 jest.mock('../services/auth');
 describe('Given a UserController class', () => {
   describe('When its instantiated', () => {
-    const mockRepo = {
-      search: jest.fn(),
-      create: jest.fn(),
+    const mockRepo: UserRepo = {
+      search: jest.fn().mockResolvedValue([]),
+      create: jest.fn().mockResolvedValue([]),
       update: jest.fn(),
     } as unknown as UserRepo;
     const req = {

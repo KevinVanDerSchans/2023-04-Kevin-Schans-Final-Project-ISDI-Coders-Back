@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import { userRouter } from './routers/user.router.js';
 import createDebug from 'debug';
 const debug = createDebug('PF: App');
 
@@ -17,6 +18,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(express.static('public'));
+
+app.use('/user', userRouter);
+
 app.get('/', (_req, resp) => {
   resp.send(`<h1>Alex & Melanie</h1>`)
 });
