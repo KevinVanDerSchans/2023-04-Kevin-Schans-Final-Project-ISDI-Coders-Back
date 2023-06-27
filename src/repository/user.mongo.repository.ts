@@ -4,7 +4,7 @@ import { User } from '../entities/user.js';
 import { Repo } from './repo.js';
 import { HttpError } from '../types/http.error.js';
 
-const debug = createDebug('W9:UserRepo');
+const debug = createDebug('PF:UserRepo');
 
 export class UserRepo implements Repo<User> {
   constructor() {
@@ -19,7 +19,7 @@ export class UserRepo implements Repo<User> {
   async queryById(id: string): Promise<User> {
     const result = await UserModel.findById(id).exec();
     if (result === null)
-      throw new HttpError(404, 'Not found', 'Bad id for the query');
+      throw new HttpError(404, 'Not found', 'It is a bad id for the query');
     return result;
   }
 
@@ -44,13 +44,13 @@ export class UserRepo implements Repo<User> {
       new: true,
     }).exec();
     if (newUser === null)
-      throw new HttpError(404, 'Not found', 'Bad id for the update');
+      throw new HttpError(404, 'Not found', 'It is a bad id for update');
     return newUser;
   }
 
   async delete(id: string): Promise<void> {
     const result = await UserModel.findByIdAndDelete(id).exec();
     if (result === null)
-      throw new HttpError(404, 'Not found', 'Bad id for the delete');
+      throw new HttpError(404, 'Not found', 'It is a bad id for delete');
   }
 }

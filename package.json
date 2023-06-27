@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "start:watch": "node --watch dist/index.js",
-    "start:server": "cross-env DEBUG=W9* PORT=4545 nodemon dist/index.js",
+    "start:server": "cross-env DEBUG=PF* PORT=4545 nodemon dist/index.js",
     "build:dev": "tsc --watch",
     "build": "tsc",
     "start:dev": "concurrently \"npm:start:server\" \"npm:build:dev\"",

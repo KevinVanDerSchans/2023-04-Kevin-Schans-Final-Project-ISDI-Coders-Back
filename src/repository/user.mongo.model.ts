@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema, SchemaTypes, model } from 'mongoose';
 import { User } from '../entities/user.js';
 
 const userSchema = new Schema<User>({
-  id: {
+  userName: {
     type: String,
     required: true,
     unique: true,
@@ -10,12 +10,6 @@ const userSchema = new Schema<User>({
   role: {
     type: String,
     required: true,
-    unique: true,
-  },
-  userName: {
-    type: String,
-    required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -36,6 +30,11 @@ const userSchema = new Schema<User>({
     required: true,
     unique: true,
   },
+  danceCourses: [
+    {
+      type: SchemaTypes.ObjectId, ref: 'DanceCourse'
+    }
+  ]
 });
 
 userSchema.set('toJSON', {
