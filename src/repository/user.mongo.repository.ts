@@ -1,7 +1,7 @@
 import { User } from '../entities/user';
 import { Repository } from './repository';
-import { HttpError } from '../types/http.error';
-import { UserModel } from './user.mongo.model';
+import { HttpError } from '../types/http.error.js';
+import { UserModel } from './user.mongo.model.js';
 import createDebug from 'debug';
 const debug = createDebug('PF: UserMongoRepository');
 
