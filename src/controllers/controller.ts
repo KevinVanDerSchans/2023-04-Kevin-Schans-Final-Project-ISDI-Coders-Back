@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
-import { Repository } from '../repository/repository.js';
-import { ApiResponse } from '../types/response.api.js';
+import { Repository } from '../repository/repository';
+import { ApiResponse } from '../types/response.api';
 
 export abstract class Controller<T extends { id: string | number }> {
   public repo!: Repository<T>;
@@ -26,19 +26,20 @@ export abstract class Controller<T extends { id: string | number }> {
       next(error);
     }
   }
-  async create(req: Request, resp: Response, next: NextFunction) {
-    try {
-      resp.status(201);
-      resp.send(await this.repo.create(req.body));
-    } catch (error) {
-      next(error);
-    }
-  }
 
   async update(req: Request, resp: Response, next: NextFunction) {
     try {
       resp.status(202);
       resp.send(await this.repo.patch(req.params.id, req.body));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async create(req: Request, resp: Response, next: NextFunction) {
+    try {
+      resp.status(201);
+      resp.send(await this.repo.create(req.body));
     } catch (error) {
       next(error);
     }

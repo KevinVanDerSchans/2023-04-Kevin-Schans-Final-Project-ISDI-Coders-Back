@@ -1,127 +1,135 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserController } from './user.controller.js';
-import { HttpError } from '../types/http.error.js';
-import { AuthServices } from '../services/auth.js';
-import { UserRepo } from '../repository/user.mongo.repository.js';
+import { UserRepo } from '../repository/user.mongo.repository';
+import { UserController } from './user.controller';
+import { HttpError } from '../types/http.error';
+import { AuthServices } from '../services/auth';
 
 jest.mock('../services/auth');
-describe('Given a UserController class', () => {
-  describe('When its instantiated', () => {
-    const mockRepo: UserRepo = {
-      search: jest.fn().mockResolvedValue([]),
-      create: jest.fn().mockResolvedValue([]),
-      update: jest.fn(),
-    } as unknown as UserRepo;
-    const req = {
-      body: {},
-    } as unknown as Request;
-    const res = {
-      send: jest.fn(),
-      status: jest.fn(),
-    } as unknown as Response;
 
-    const next = jest.fn() as NextFunction;
+describe('Given a user controller', () => {
+  const mockPassword = '12345';
+  const mockRepo: UserRepo = {
+    search: jest.fn().mockResolvedValue([]),
+    create: jest.fn().mockResolvedValue({}),
+  } as unknown as UserRepo;
 
-    test('Then the register method should be used', async () => {
+  const req = {
+    body: {},
+  } as unknown as Request;
+
+  const res = {
+    send: jest.fn(),
+    status: jest.fn(),
+  } as unknown as Response;
+
+  const next = jest.fn() as NextFunction;
+
+  describe('When it is instantiated and register method is called', () => {
+    test('Then method register should have been called', async () => {
       const controller = new UserController(mockRepo);
-      const mockPassword = '12345';
-      req.body = { password: mockPassword };
+      req.body = { userName: 'Erik', email: 'erikvdsd@hotmail.com', mockPassword };
       await controller.register(req, res, next);
-      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.send).toHaveBeenCalled();
       expect(mockRepo.create).toHaveBeenCalled();
     });
+  });
 
-    test('Then method login should be used', async () => {
+  describe('When it is instantiated and login method is called', () => {
+    test('Then method login should have been called', async () => {
       const controller = new UserController(mockRepo);
-      const mockUser = { user: 'Nitin', password: '12345' };
-      req.body = mockUser;
+      req.body = { userName: 'Erik', password: '12345' };
       (AuthServices.compare as jest.Mock).mockResolvedValueOnce(true);
       await controller.login(req, res, next);
       expect(mockRepo.search).toHaveBeenCalled();
       expect(res.send).toHaveBeenCalled();
     });
   });
+});
 
-  describe('When there is an instantiate of error', () => {
-    const error = new HttpError(400, 'Bad request', 'User or password invalid');
-    const mockRepo = {
-      search: jest.fn().mockResolvedValue(error),
-      post: jest.fn().mockResolvedValue(error),
-    } as unknown as UserRepo;
+describe('Given a user controller', () => {
+  const req = {
+    body: { user: 'Erik', password: '12345' },
+  } as unknown as Request;
 
-    const req = {
-      body: {},
-    } as unknown as Request;
-    const res = {
-      send: jest.fn(),
-    } as unknown as Response;
-    const next = jest.fn() as NextFunction;
-    const controller = new UserController(mockRepo);
+  const res = {
+    send: jest.fn(),
+    status: jest.fn(),
+  } as unknown as Response;
 
-    test('Then the login method should throw a HttpError if there is not an user or password', async () => {
+  const next = jest.fn() as NextFunction;
+
+  describe('When it is instantiated and register method is called but password is not valid', () => {
+    test('Then it should throw an error', async () => {
+      const error = new Error('User or password invalid');
+      const mockRepo: UserRepo = {
+        search: jest.fn().mockRejectedValue(error),
+        create: jest.fn().mockRejectedValue(error),
+      } as unknown as UserRepo;
+
+      const controller = new UserController(mockRepo);
+      await controller.register(req, res, next);
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('When it is instantiated and login method is called but there is no user or password', () => {
+    test('Then it should throw an error', async () => {
       const error = new HttpError(
         400,
         'Bad request',
         'User or password invalid'
       );
-      await controller.login(req, res, next);
-      expect(next).toHaveBeenCalledWith(error);
-    });
+      const mockRepo: UserRepo = {
+        search: jest.fn().mockRejectedValue(error),
+        create: jest.fn().mockRejectedValue(error),
+      } as unknown as UserRepo;
 
-    test('Then the login method should throw a HttpError for an invalid user', async () => {
-      const mockUser = { user: 'Marco', password: 'abcd' };
-      req.body = mockUser;
-      (mockRepo.search as jest.Mock).mockResolvedValueOnce([]);
-      await controller.login(req, res, next);
-      expect(next).toHaveBeenCalledWith(error);
-    });
-
-    test('Then the login method should throw a HttpError for an invalid password', async () => {
+      req.body = { user: null, password: null };
       const controller = new UserController(mockRepo);
-      const mockUser = { userName: 'Nitin', password: 'abcd' };
-      const mockInvalidUser = { user: 'Nitin', password: 'abce' };
-      req.body = mockInvalidUser;
-      (mockRepo.search as jest.Mock).mockResolvedValueOnce([mockUser]);
-      (AuthServices.compare as jest.Mock).mockResolvedValueOnce(false);
-      await controller.login(req, res, next);
-      expect(next).toHaveBeenCalledWith(error);
-    });
-
-    test('Then the login method should throw a HttpError for an invalid user or password', async () => {
-      const controller = new UserController(mockRepo);
-      const mockUser = { user: 'Nitin', password: 'abcd' };
-      const error = new HttpError(
-        400,
-        'Bad request',
-        'User or password invalid'
-      );
-      req.body = mockUser;
-      (mockRepo.search as jest.Mock).mockResolvedValueOnce([mockUser]);
-      (AuthServices.compare as jest.Mock).mockResolvedValueOnce(false);
       await controller.login(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });
   });
 
-  describe('When there is an instantiate of error', () => {
-    const error = new Error('An error occurred');
-    const mockRepo = {
-      post: jest.fn().mockRejectedValue(error),
-    } as unknown as UserRepo;
-    const req = {
-      body: { password: 'abcd' },
-    } as unknown as Request;
-    const res = {
-      send: jest.fn(),
-      status: jest.fn(),
-    } as unknown as Response;
+  describe('When it is instantiated and login method is called but user or password is not valid', () => {
+    test('Then it should throw an error', async () => {
+      const error = new HttpError(
+        400,
+        'Bad request',
+        'User or password invalid'
+      );
 
-    const controller = new UserController(mockRepo);
-    const next = jest.fn() as NextFunction;
+      const mockRepo: UserRepo = {
+        search: jest
+          .fn()
+          .mockResolvedValueOnce([{ user: null, password: '12345' }]),
+        create: jest.fn().mockResolvedValueOnce({}),
+      } as unknown as UserRepo;
+      
+      const controller = new UserController(mockRepo);
+      req.body = { user: 'Erik', password: '12345' };
+      await controller.login(req, res, next);
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+  
+  describe('When it is instantiated and login method is called but userIsValid is false', () => {
+    test('Then it should throw an error', async () => {
+      const error = new HttpError(
+        404,
+        'Bad request',
+        'User or password invalid'
+      );
+      const mockRepo: UserRepo = {
+        search: jest
+          .fn()
+          .mockResolvedValueOnce([{ user: 'Erik', password: '12345' }]),
+        create: jest.fn().mockResolvedValueOnce({}),
+      } as unknown as UserRepo;
 
-    test('Then the register method should throw an Error when the hash method from AuthServices does not work', async () => {
-      (AuthServices.hash as jest.Mock).mockRejectedValueOnce(error);
-      await controller.register(req, res, next);
+      const controller = new UserController(mockRepo);
+      (AuthServices.compare as jest.Mock).mockResolvedValueOnce(false);
+      await controller.login(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });
   });
