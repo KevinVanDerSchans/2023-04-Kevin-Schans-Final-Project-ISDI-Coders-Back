@@ -10,7 +10,7 @@ const userSchema = new Schema<User>({
   },
   role: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
@@ -22,16 +22,6 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
     trim: true,
-  },
-  avatar: {
-    type: {
-      urlOriginal: { type: String },
-      url: { type: String },
-      mimetype: { type: String },
-      size: { type: Number },
-    },
-    required: true,
-    unique: true,
   },
   danceCourses: [
     {
