@@ -3,7 +3,7 @@ import { Repository } from '../repository/repository';
 import { ApiResponse } from '../types/response.api';
 
 export abstract class Controller<T extends { id: string | number }> {
-  public repo!: Repository<T>;
+  protected repo!: Repository<T>;
 
   async query(_req: Request, resp: Response, next: NextFunction) {
     try {

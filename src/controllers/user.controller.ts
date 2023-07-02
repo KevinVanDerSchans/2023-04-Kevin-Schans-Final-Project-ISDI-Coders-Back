@@ -9,7 +9,7 @@ import { LoginResponse } from '../types/response.api.js';
 const debug = createDebug('PF: UserController');
 
 export class UserController extends Controller<User> {
-  constructor(public repo: UserRepo) {
+  constructor(protected repo: UserRepo) {
     super();
     debug('Instantiated UserController');
   }
