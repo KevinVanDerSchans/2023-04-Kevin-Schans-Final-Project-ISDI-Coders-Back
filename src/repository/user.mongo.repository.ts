@@ -1,9 +1,11 @@
-import { User } from '../entities/user';
-import { Repository } from './repository';
-import { HttpError } from '../types/http.error.js';
 import { UserModel } from './user.mongo.model.js';
 import createDebug from 'debug';
-const debug = createDebug('PF: UserMongoRepository');
+import { User } from '../entities/user.js';
+import { HttpError } from '../types/http.error.js';
+import { Repository } from './repository.js';
+
+// TEMP import { HttpError } from '../types/http.error.js';
+const debug = createDebug('FP:UserRepo');
 
 export class UserRepo implements Repository<User> {
   constructor() {
@@ -11,25 +13,15 @@ export class UserRepo implements Repository<User> {
   }
 
   async query(): Promise<User[]> {
-    const data = await UserModel.find().exec();
-    return data;
+    const allData = await UserModel.find().exec();
+    return allData;
   }
 
   async queryById(id: string): Promise<User> {
     const result = await UserModel.findById(id).exec();
     if (result === null)
-      throw new HttpError(
-        404,
-        'Not found',
-        'This is not a valid ID for the query'
-      );
-
+      throw new HttpError(404, 'Not found', 'No user found with this id');
     return result;
-  }
-
-  async create(data: Omit<User, 'id'>): Promise<User> {
-    const newUser = await UserModel.create(data);
-    return newUser;
   }
 
   async search({
@@ -43,26 +35,23 @@ export class UserRepo implements Repository<User> {
     return result;
   }
 
+  async create(data: Omit<User, 'id'>): Promise<User> {
+    const newUser = await UserModel.create(data);
+    return newUser;
+  }
+
   async patch(id: string, data: Partial<User>): Promise<User> {
     const newUser = await UserModel.findByIdAndUpdate(id, data, {
       new: true,
     }).exec();
     if (newUser === null)
-      throw new HttpError(
-        404,
-        'Not found',
-        'This is not a valid ID for the query'
-      );
+      throw new HttpError(404, 'Not found', 'Bad id for the update');
     return newUser;
   }
 
   async delete(id: string): Promise<void> {
     const result = await UserModel.findByIdAndDelete(id).exec();
     if (result === null)
-      throw new HttpError(
-        404,
-        'Not found',
-        'This is not a valid ID for the query'
-      );
+      throw new HttpError(404, 'Not found', 'Bad id for the delete');
   }
 }
