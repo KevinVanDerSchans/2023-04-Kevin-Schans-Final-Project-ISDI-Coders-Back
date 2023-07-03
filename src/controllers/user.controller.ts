@@ -60,12 +60,12 @@ export class UserController extends Controller<User> {
       const payload: PayloadToken = {
         id: data[0].id,
         userName: data[0].userName,
+        role: data[0].role,
       };
 
       const token = AuthServices.createJWT(payload);
       const response: LoginResponse = {
         token,
-        
         user: data[0],
       };
       resp.send(response);
