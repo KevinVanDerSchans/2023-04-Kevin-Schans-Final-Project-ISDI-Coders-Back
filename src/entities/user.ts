@@ -6,5 +6,5 @@ export type User = {
   userName: string,
   email: string,
   password: string,
-  danceCourses: DanceCourse[]
+  favouriteDanceCourses: DanceCourse[]
 }

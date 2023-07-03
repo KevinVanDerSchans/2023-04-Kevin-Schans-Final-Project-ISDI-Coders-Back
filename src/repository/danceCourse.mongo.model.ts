@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { DanceCourse } from '../entities/danceCourse';
 
-
 const danceCourseSchema = new Schema<DanceCourse>({
   courseName: {
     type: String,
