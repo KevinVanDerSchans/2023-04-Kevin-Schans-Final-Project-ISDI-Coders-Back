@@ -9,7 +9,7 @@ import { LoginResponse } from '../types/response.api.js';
 const debug = createDebug('PF: UserController');
 
 export class UserController extends Controller<User> {
-  constructor(protected repo: UserRepo) {
+  constructor(public repo: UserRepo) {
     super();
     debug('Instantiated UserController');
   }
@@ -18,7 +18,7 @@ export class UserController extends Controller<User> {
     try {
       const password = await AuthServices.hash(req.body.password);
       req.body.password = password;
-      req.body.role = "user"
+      req.body.role = 'user';
       res.status(201);
       res.send(await this.repo.create(req.body));
     } catch (error) {

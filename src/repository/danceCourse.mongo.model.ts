@@ -1,32 +1,36 @@
 import { Schema, model } from 'mongoose';
-import { DanceCourse } from '../entities/danceCourse';
-
+import { DanceCourse } from '../entities/danceCourse.js';
 
 const danceCourseSchema = new Schema<DanceCourse>({
   courseName: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
   },
   level: {
     type: String,
     required: true,
+    unique: false,
   },
   priceCourse: {
     type: String,
     required: true,
+    unique: false,
   },
   totalClasses: {
     type: Number,
     required: true,
+    unique: false,
   },
   initialDescription: {
     type: String,
     required: true,
+    unique: false,
   },
   largeDescription: {
     type: String,
     required: true,
+    unique: false,
   },
   image: {
     type: {
@@ -35,8 +39,8 @@ const danceCourseSchema = new Schema<DanceCourse>({
       mimetype: { type: String },
       size: { type: Number },
     },
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   }
 });
 
@@ -44,7 +48,7 @@ danceCourseSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject.__id;
+    delete returnedObject._id;
     delete returnedObject.password;
   },
 });

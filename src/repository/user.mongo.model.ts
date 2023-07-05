@@ -23,11 +23,11 @@ const userSchema = new Schema<User>({
     required: true,
     trim: true,
   },
-  danceCourses: [
+  favouriteDanceCourses: [
     {
       type: SchemaTypes.ObjectId, ref: 'DanceCourse'
     }
-  ]
+  ],
 });
 
 userSchema.set('toJSON', {

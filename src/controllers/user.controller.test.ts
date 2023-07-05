@@ -48,7 +48,7 @@ describe('Given a user controller', () => {
 
 describe('Given a user controller', () => {
   const req = {
-    body: { user: 'Erik', password: '12345' },
+    body: { userName: 'Erik', password: '12345' },
   } as unknown as Request;
 
   const res = {
@@ -84,7 +84,7 @@ describe('Given a user controller', () => {
         create: jest.fn().mockRejectedValue(error),
       } as unknown as UserRepo;
 
-      req.body = { user: null, password: null };
+      req.body = { userName: null, password: null };
       const controller = new UserController(mockRepo);
       await controller.login(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
@@ -102,12 +102,12 @@ describe('Given a user controller', () => {
       const mockRepo: UserRepo = {
         search: jest
           .fn()
-          .mockResolvedValueOnce([{ user: null, password: '12345' }]),
+          .mockResolvedValueOnce([{ userName: null, password: '12345' }]),
         create: jest.fn().mockResolvedValueOnce({}),
       } as unknown as UserRepo;
       
       const controller = new UserController(mockRepo);
-      req.body = { user: 'Erik', password: '12345' };
+      req.body = { userName: 'Erik', password: '12345' };
       await controller.login(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });
@@ -123,7 +123,7 @@ describe('Given a user controller', () => {
       const mockRepo: UserRepo = {
         search: jest
           .fn()
-          .mockResolvedValueOnce([{ user: 'Erik', password: '12345' }]),
+          .mockResolvedValueOnce([{ userName: 'Erik', password: '12345' }]),
         create: jest.fn().mockResolvedValueOnce({}),
       } as unknown as UserRepo;
 
@@ -133,4 +133,4 @@ describe('Given a user controller', () => {
       expect(next).toHaveBeenCalledWith(error);
     });
   });
-});
+})
