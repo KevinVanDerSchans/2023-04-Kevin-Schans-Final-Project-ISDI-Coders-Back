@@ -1,5 +1,5 @@
 import createDebug from "debug";
-import express, { Router as createRouter } from "express";
+import { Router as createRouter } from "express";
 import { Repository } from "../repository/repository.js";
 import { DanceCourse } from "../entities/danceCourse.js";
 import { DanceCourseRepo } from "../repository/danceCourse.mongo.repository.js";
