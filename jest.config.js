@@ -12,7 +12,8 @@ export default {
     'src/config.ts',
     '/src/entities/user.ts',
     'src/repository/user.mongo.model.ts',
-    'src/routers/user.router.ts',
     'src/repository/danceCourse.mongo.model.ts',
+    'src/routers/user.router.ts',
+    'src/routers/danceCourse.router.ts',
   ],
 };

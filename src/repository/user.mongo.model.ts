@@ -1,5 +1,6 @@
 import { Schema, SchemaTypes, model } from 'mongoose';
 import { User } from '../entities/user.js';
+import { Image } from '../types/image.js';
 
 const userSchema = new Schema<User>({
   userName: {
@@ -23,11 +24,11 @@ const userSchema = new Schema<User>({
     required: true,
     trim: true,
   },
-  danceCourses: [
+  favouriteDanceCourses: [
     {
       type: SchemaTypes.ObjectId, ref: 'DanceCourse'
     }
-  ]
+  ],
 });
 
 userSchema.set('toJSON', {

@@ -1,10 +1,10 @@
 import createDebug from "debug";
+import { NextFunction, Request, Response } from "express";
 import { Controller } from "./controller.js";
 import { DanceCourse } from "../entities/danceCourse.js";
 import { DanceCourseRepo } from "../repository/danceCourse.mongo.repository.js";
 import { UserRepo } from "../repository/user.mongo.repository.js";
-import { NextFunction, Request, Response } from "express";
-import { PayloadToken } from "../services/auth.js";
+// import { PayloadToken } from "../services/auth.js";
 
 const debug = createDebug("PF: DanceCourseController");
 
@@ -16,7 +16,10 @@ export class DanceCourseController extends Controller<DanceCourse> {
 
   async post(req: Request, res: Response, next: NextFunction) {
     try {
-      // TEMP
+
+      const newDanceCourse = await this.repo.create(req.body);
+      res.status(201);
+      res.send(newDanceCourse);
     }
     catch (error) {
       next(error);

@@ -1,8 +1,8 @@
 import createDebug from "debug";
-import { Repository } from "./repository";
-import { DanceCourse } from "../entities/danceCourse";
-import { DanceCourseModel } from "./danceCourse.mongo.model";
-import { HttpError } from "../types/http.error";
+import { Repository } from "./repository.js";
+import { DanceCourse } from "../entities/danceCourse.js";
+import { DanceCourseModel } from "./danceCourse.mongo.model.js";
+import { HttpError } from "../types/http.error.js";
 
 const debug = createDebug("FP: DanceCourseRepo");
 
