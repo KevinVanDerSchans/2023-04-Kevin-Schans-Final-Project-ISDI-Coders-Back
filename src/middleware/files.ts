@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 import { HttpError } from '../types/http.error.js';
 import sharp from 'sharp';
+import { FireBase } from '../services/firebase.js';
 const debug = createDebug('PF: FileMiddleware');
 
 const optionsSets: {
@@ -94,9 +95,12 @@ export class FileMiddleware {
         userImageExtension[0] + '_1.' + userImageExtension[1]
       }`;
 
+      const firebase = new FireBase();
+      const backupImage = await firebase.uploadFile(userImage);
+
       req.body[req.file.fieldname] = {
         urlOriginal: req.file.originalname,
-        url: imagePath,
+        url: backupImage,
         mimetype: req.file.mimetype,
         size: req.file.size,
       };

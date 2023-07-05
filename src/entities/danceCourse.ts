@@ -3,7 +3,7 @@ import { Image } from "../types/image"
 export type DanceCourse = {
   id: string,
   courseName: string,
-  level: 'beginner' | 'intermediate' | 'advanced',
+  level: 'Beginner' | 'Intermediate' | 'Advanced',
   priceCourse: string,
   totalClasses: number,
   initialDescription: string,
