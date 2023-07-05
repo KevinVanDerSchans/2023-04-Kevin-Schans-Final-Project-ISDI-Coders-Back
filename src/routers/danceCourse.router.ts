@@ -7,10 +7,11 @@ import { UserRepo } from "../repository/user.mongo.repository.js";
 import { DanceCourseController } from "../controllers/danceCourse.controller.js";
 import { AuthInterceptor } from "../middleware/auth.interceptor.js";
 import { User } from "../entities/user.js";
+import { FileMiddleware } from "../middleware/files.js";
 
 const debug = createDebug("PF: DanceCourseRouter");
 
-debug("Executed");
+debug("Start app");
 
 const danceCourseRepo: Repository<DanceCourse> = new DanceCourseRepo();
 const userRepo: Repository<User> = new UserRepo();
@@ -18,12 +19,16 @@ const controller = new DanceCourseController(danceCourseRepo, userRepo);
 const interceptor = new AuthInterceptor(danceCourseRepo);
 export const danceCourseRouter = createRouter();
 
+const fileStore = new FileMiddleware();
+
 danceCourseRouter.get('/', controller.query.bind(controller));
 
 danceCourseRouter.get('/id', controller.queryById.bind(controller));
 
 danceCourseRouter.post(
   '/',
+  fileStore.singleFileStore('image').bind(fileStore),
+  fileStore.saveImage.bind(fileStore),
   interceptor.logged.bind(interceptor),
   controller.post.bind(controller)
 );
@@ -37,7 +42,7 @@ danceCourseRouter.patch(
 
 danceCourseRouter.delete(
   '/:id',
-  interceptor.logged.bind(interceptor),
-  interceptor.authorizedDanceCourses.bind(interceptor),
+  // interceptor.logged.bind(interceptor),
+  // interceptor.authorizedDanceCourses.bind(interceptor),
   controller.delete.bind(controller)
 );
