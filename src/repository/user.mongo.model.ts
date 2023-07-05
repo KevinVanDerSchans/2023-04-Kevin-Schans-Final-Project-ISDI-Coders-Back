@@ -1,6 +1,5 @@
 import { Schema, SchemaTypes, model } from 'mongoose';
 import { User } from '../entities/user.js';
-import { Image } from '../types/image.js';
 
 const userSchema = new Schema<User>({
   userName: {

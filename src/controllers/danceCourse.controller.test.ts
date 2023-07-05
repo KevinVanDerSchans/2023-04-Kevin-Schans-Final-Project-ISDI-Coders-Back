@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { DanceCourseRepo } from "../repository/danceCourse.mongo.repository";
 import { DanceCourseController } from "./danceCourse.controller";
 import { UserRepo } from "../repository/user.mongo.repository";
-
 describe('Given the DanceCourseController class', () => {
   describe('When it is instantiated', () => {
 

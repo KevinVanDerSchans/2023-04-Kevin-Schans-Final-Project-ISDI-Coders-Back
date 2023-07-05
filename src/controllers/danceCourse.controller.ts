@@ -4,7 +4,6 @@ import { Controller } from "./controller.js";
 import { DanceCourse } from "../entities/danceCourse.js";
 import { DanceCourseRepo } from "../repository/danceCourse.mongo.repository.js";
 import { UserRepo } from "../repository/user.mongo.repository.js";
-// import { PayloadToken } from "../services/auth.js";
 
 const debug = createDebug("PF: DanceCourseController");
 
