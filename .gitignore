@@ -130,6 +130,3 @@ dist
 .pnp.*
 
 public/uploads/
-src/middleware/files.ts/
-
-files.ts
