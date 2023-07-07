@@ -41,7 +41,17 @@ const danceCourseSchema = new Schema<DanceCourse>({
     },
     required: false,
     unique: false,
-  }
+  },
+  video: {
+    type: {
+      urlOriginal: { type: String },
+      url: { type: String },
+      mimetype: { type: String },
+      size: { type: Number },
+    },
+    required: false,
+    unique: false,
+  },
 });
 
 danceCourseSchema.set('toJSON', {

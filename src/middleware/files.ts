@@ -1,11 +1,11 @@
 import path from 'path';
 import multer from 'multer';
-import createDebug from 'debug';
 import crypto from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 import { HttpError } from '../types/http.error.js';
 import sharp from 'sharp';
 import { FireBase } from '../services/firebase.js';
+import createDebug from 'debug';
 const debug = createDebug('PF: FileMiddleware');
 
 const optionsSets: {
@@ -15,7 +15,7 @@ const optionsSets: {
     quality: number;
   };
 } = {
-  danceCourses: {
+  danceCourse: {
     fit: 'cover',
     position: 'top',
     quality: 100,
@@ -26,7 +26,8 @@ export class FileMiddleware {
   constructor() {
     debug('Instantiate');
   };
-  singleFileStore(fileName = 'file', fileSize = 15_000_000) {
+
+  singleFileStore(fileName = 'file', fileSize = 25_000_000) {
     const upload = multer({
       storage: multer.diskStorage({
         destination: 'public/uploads',
@@ -51,13 +52,36 @@ export class FileMiddleware {
     };
   };
 
+  multiFileStore(imageName = 'imageFile', videoName = 'videoFile', imageSize = 15_000_000, videoSize = 25_000_000) {
+    const upload = multer({
+      storage: multer.diskStorage({
+        destination: 'public/uploads',
+        filename(req, file, callback) {
+          const suffix = crypto.randomUUID();
+          const extension = path.extname(file.originalname);
+          const basename = path.basename(file.originalname, extension);
+          const filename = `${basename}-${suffix}${extension}`;
+          debug('Called Multer');
+          callback(null, filename);
+        },
+      }),
+    });
+    const middleware = upload.fields([{ name: imageName, maxCount: 1 }, { name: videoName, maxCount: 1 }])
+    return (req: Request, res: Response, next: NextFunction) => {
+      const previousBody = req.body;
+      middleware(req, res, next);
+      req.body = { ...previousBody, ...req.body };
+    };
+  };
+
   async optimization(req: Request, res: Response, next: NextFunction) {
+   
     try {
       if (!req.file) {
         throw new HttpError(406, 'Not Acceptable', 'It is not a valid image file');
       };
 
-      const options = optionsSets.sighting;
+      const options = optionsSets.danceCourse;
       const fileName = req.file.filename;
       const baseFileName = `${path.basename(fileName, path.extname(fileName))}`;
 
@@ -83,13 +107,17 @@ export class FileMiddleware {
   };
 
   saveImage = async (req: Request, res: Response, next: NextFunction) => {
+    
     try {
       debug('Called saveImage');
 
-      if (!req.file)
+      if (! (req.files as any).image)
         throw new HttpError(406, 'Not Acceptable', 'Not valid image file');
 
-      const userImage = req.file.filename;
+      if (! (req.files as any).video)
+        throw new HttpError(406, 'Not Acceptable', 'Not valid video file');
+
+      const userImage = (req.files as any).image[0].filename;
       const userImageExtension = userImage.split('.');
       const imagePath = `${req.protocol}://${req.get('host')}/uploads/${
         userImageExtension[0] + '_1.' + userImageExtension[1]
@@ -98,11 +126,21 @@ export class FileMiddleware {
       const firebase = new FireBase();
       const backupImage = await firebase.uploadFile(userImage);
 
-      req.body[req.file.fieldname] = {
-        urlOriginal: req.file.originalname,
+      req.body[(req.files as any).image[0].fieldname] = {
+        urlOriginal: (req.files as any).image[0].originalname,
         url: backupImage,
-        mimetype: req.file.mimetype,
-        size: req.file.size,
+        mimetype: (req.files as any).image[0].mimetype,
+        size: (req.files as any).image[0].size,
+      };
+
+      const userVideo = (req.files as any).video[0].filename;
+      const backupVideo = await firebase.uploadFile(userVideo);
+
+      req.body[(req.files as any).video[0].fieldname] = {
+        urlOriginal: (req.files as any).video[0].originalname,
+        url: backupVideo,
+        mimetype: (req.files as any).video[0].mimetype,
+        size: (req.files as any).video[0].size,
       };
       next();
 
