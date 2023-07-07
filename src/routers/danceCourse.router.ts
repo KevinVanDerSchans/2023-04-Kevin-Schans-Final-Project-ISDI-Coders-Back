@@ -27,9 +27,10 @@ danceCourseRouter.get('/id', controller.queryById.bind(controller));
 
 danceCourseRouter.post(
   '/',
-  fileStore.singleFileStore('image').bind(fileStore),
+
+  // interceptor.logged.bind(interceptor),
+  fileStore.multiFileStore('image', 'video').bind(fileStore),
   fileStore.saveImage.bind(fileStore),
-  interceptor.logged.bind(interceptor),
   controller.post.bind(controller)
 );
 
@@ -42,7 +43,7 @@ danceCourseRouter.patch(
 
 danceCourseRouter.delete(
   '/:id',
-  // interceptor.logged.bind(interceptor),
-  // interceptor.authorizedDanceCourses.bind(interceptor),
+  interceptor.logged.bind(interceptor),
+  interceptor.authorizedDanceCourses.bind(interceptor),
   controller.delete.bind(controller)
 );
