@@ -31,7 +31,7 @@ danceCourseRouter.post(
   // interceptor.logged.bind(interceptor),
   fileStore.multiFileStore('image', 'video').bind(fileStore),
   fileStore.saveImage.bind(fileStore),
-  controller.post.bind(controller)
+  controller.create.bind(controller)
 );
 
 danceCourseRouter.patch(
