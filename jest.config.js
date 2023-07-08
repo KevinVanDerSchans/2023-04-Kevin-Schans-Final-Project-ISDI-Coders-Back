@@ -15,7 +15,6 @@ export default {
     'src/repository/danceCourse.mongo.model.ts',
     'src/routers/user.router.ts',
     'src/routers/danceCourse.router.ts',
-    'src/services/firebase.ts',
     'src/middleware/files.ts',
     'src/controllers/controller.ts',
   ],
