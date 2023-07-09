@@ -1,0 +1,41 @@
+body {
+  background-image: url("/public/background.render.jpg");
+  background-repeat: none;
+}
+
+h1 {
+  color: rgb(235, 231, 231);
+  text-align: center;
+  font-size: 3rem;
+}
+
+h2 {
+  color: rgb(229, 226, 226);
+  text-align: center;
+  font-size: 2rem;
+}
+
+h3 {
+  margin-top: 200px;
+  color: rgb(181, 177, 177);
+  text-align: center;
+  font-size: 2rem;
+}
+
+ul {
+  justify-content: center;
+  display: flex;
+  list-style: none;
+  font-size: 1.4rem;
+}
+
+li {
+  padding-right: 40px;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  color: rgb(216, 208, 208);
+  font-weight: 800;
+}
