@@ -35,14 +35,13 @@ danceCourseRouter.post(
 
 danceCourseRouter.patch(
   '/:id',
-  interceptor.authorizedUserRole.bind(interceptor),
-  controller.update.bind(controller),
   interceptor.logged.bind(interceptor),
+  // interceptor.authorizedUserRole.bind(interceptor),
+  controller.update.bind(controller),
 );
 
 danceCourseRouter.delete(
   '/:id',
-
   //interceptor.authorizedDanceCourses.bind(interceptor),
   controller.delete.bind(controller)
 );
