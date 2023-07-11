@@ -16,7 +16,7 @@ debug("Start app");
 const danceCourseRepo: Repository<DanceCourse> = new DanceCourseRepo();
 const userRepo: Repository<User> = new UserRepo();
 const controller = new DanceCourseController(danceCourseRepo, userRepo);
-const interceptor = new AuthInterceptor(danceCourseRepo);
+const interceptor = new AuthInterceptor(danceCourseRepo, userRepo);
 export const danceCourseRouter = createRouter();
 
 const fileStore = new FileMiddleware();
@@ -35,12 +35,14 @@ danceCourseRouter.post(
 
 danceCourseRouter.patch(
   '/:id',
-  controller.update.bind(controller)
+  interceptor.authorizedUserRole.bind(interceptor),
+  controller.update.bind(controller),
+  interceptor.logged.bind(interceptor),
 );
 
 danceCourseRouter.delete(
   '/:id',
-  // interceptor.logged.bind(interceptor),
+
   //interceptor.authorizedDanceCourses.bind(interceptor),
   controller.delete.bind(controller)
 );
