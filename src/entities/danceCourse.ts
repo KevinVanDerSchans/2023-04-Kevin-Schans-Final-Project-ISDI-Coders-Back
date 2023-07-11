@@ -6,7 +6,7 @@ export type DanceCourse = {
   courseName: string,
   level: 'Beginner' | 'Intermediate' | 'Advanced',
   priceCourse: string,
-  totalClasses: number,
+  totalClasses: string,
   initialDescription: string,
   largeDescription: string,
   image: Image,
