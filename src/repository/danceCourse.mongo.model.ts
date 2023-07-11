@@ -18,7 +18,7 @@ const danceCourseSchema = new Schema<DanceCourse>({
     unique: false,
   },
   totalClasses: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
   },
