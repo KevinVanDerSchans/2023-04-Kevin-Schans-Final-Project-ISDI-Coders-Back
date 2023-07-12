@@ -17,5 +17,6 @@ export default {
     'src/routers/danceCourse.router.ts',
     'src/middleware/files.ts',
     'src/controllers/controller.ts',
+    'src/middleware/auth.interceptor.ts',
   ],
 };
