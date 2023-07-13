@@ -27,7 +27,6 @@ danceCourseRouter.get('/id', controller.queryById.bind(controller));
 
 danceCourseRouter.post(
   '/',
-  // interceptor.logged.bind(interceptor),
   fileStore.multiFileStore('image', 'video').bind(fileStore),
   fileStore.saveImage.bind(fileStore),
   controller.create.bind(controller)
@@ -36,12 +35,10 @@ danceCourseRouter.post(
 danceCourseRouter.patch(
   '/:id',
   interceptor.logged.bind(interceptor),
-  // interceptor.authorizedUserRole.bind(interceptor),
   controller.update.bind(controller),
 );
 
 danceCourseRouter.delete(
   '/:id',
-  //interceptor.authorizedDanceCourses.bind(interceptor),
   controller.delete.bind(controller)
 );
