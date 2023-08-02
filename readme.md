@@ -5,7 +5,7 @@
 
 
 
-<img src="/public/readme.png" alt="Alex & Melanie Home image" width="900">
+<img src="/public/readme-photo.png" alt="Alex & Melanie Home image" width="900">
 
 <br>
 
