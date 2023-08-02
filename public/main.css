@@ -1,41 +1,52 @@
 body {
-  background-image: url("background.render.jpg");
-  background-repeat: none;
+  background: linear-gradient(to bottom, rgb(82, 122, 223), #101010);
+  height: 94.3vh;
 }
 
-h1 {
+.title {
   color: rgb(235, 231, 231);
   text-align: center;
   font-size: 3rem;
+  font-style: italic;
 }
 
-h2 {
+.subtitle {
   color: rgb(229, 226, 226);
   text-align: center;
   font-size: 2rem;
+  font-style: italic;
 }
 
-h3 {
+.endpoints {
   margin-top: 200px;
-  color: rgb(181, 177, 177);
+  color: rgb(200, 195, 195);
   text-align: center;
   font-size: 2rem;
 }
 
-ul {
+.list {
   justify-content: center;
   display: flex;
   list-style: none;
   font-size: 1.4rem;
 }
 
-li {
-  padding-right: 40px;
+.list-item {
+  padding: 20px 40px 0 0;
 }
 
-a {
+.list-button {
   text-align: center;
   text-decoration: none;
   color: rgb(216, 208, 208);
   font-weight: 800;
+  padding: 20px;
+  background-color: rgb(42, 41, 41);
+  border: 3px solid rgb(166, 163, 163);
+  border-radius: 10px;
+}
+
+.list-button:hover {
+  color: white;
+  background-color: #727171;
 }
