@@ -6,7 +6,7 @@
 <br>
 
 <p align="center">
-  <img src="public/GIF-home.gif" alt="Alex & Melanie Home image" width="800">
+  <img src="public/GIF-home.gif" alt="Alex & Melanie Home image" width="700">
 </p>
 
 <br>
@@ -14,11 +14,13 @@
 
 **_Alex & Melanie_** is a Desktop API WEB of an **e-commerce of online courses of Latin dances**. 
 
-The page has 24 different types of courses, where the user can register and log in.
+
+The user will be able to register and log in to the website, where they will be able to view 24 different types of dance courses.
+
 
 In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create, edit and delete a course) to update the content.
 
-<br>
+
 
 ### The backend of this application is built with Node.js, Express.js and TypeScript; according to the DDD (Domain-Driven-Design) architecture pattern. It is responsible for:
 
@@ -66,6 +68,8 @@ Before running the backend of this application, make sure you have the following
 - Node.js: [Download and install Node.js](https://nodejs.org)
 - MongoDB: [Download and install MongoDB](https://www.mongodb.com)
 - Git: [Download and install Git](https://git-scm.com/)
+
+<br>
 
 Once you have installed the dependencies, follow these steps to configure and run the backend:
 
@@ -135,7 +139,6 @@ The ***administrator*** will be able to:
 <br>
 <br>
 
-
 ## Endpoints
 
 ### User
@@ -147,7 +150,6 @@ The ***administrator*** will be able to:
 | GET    | /user          | Retrieve a list of users.                                                                           |
 | GET    | /user/:id      | Retrieve a user by ID.                                                                              |
 
-<br>
 <br>
 
 ### DanceCourse
