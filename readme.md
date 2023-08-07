@@ -1,26 +1,20 @@
 # Alex & Melanie -  Backend | Node.js / Express.js / MongoDB
 
-## Kevin van der Schans | ISDI Coders Final Proyect 2023
-
+## Kevin van der Schans | ISDI Coders Final Project 2023
 
 <br>
 
 <p align="center">
-  <img src="public/GIF-home.gif" alt="Alex & Melanie Home image" width="700">
+  <img src="public/readme-gif-back.gif" alt="Alex & Melanie Home image" width="750">
 </p>
 
-<br>
 <br>
 
 **_Alex & Melanie_** is a Desktop API WEB of an **e-commerce of online courses of Latin dances**. 
 
-
 The user will be able to register and log in to the website, where they will be able to view 24 different types of dance courses.
 
-
 In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create, edit and delete a course) to update the content.
-
-
 
 ### The backend of this application is built with Node.js, Express.js and TypeScript; according to the DDD (Domain-Driven-Design) architecture pattern. It is responsible for:
 
@@ -37,7 +31,6 @@ In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create
 - Save videos and images with Firebase and optimize them with Sharp.
 
 <br>
-<br>
 
 # Index
 
@@ -45,7 +38,7 @@ In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create
 
 2. [Project installation](#project-installation)
 
-2. [Link to Frontend Repository](#link-to-frontend-repository)
+3. [Link to Frontend Repository](#link-to-frontend-repository)
 
 4. [Project status](#project-status)
 
@@ -53,12 +46,10 @@ In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create
 
 6. [Endpoints](#endpoints)
 
-2. [Contribution](#contribution)
+7. [Contribution](#contribution)
 
-7. [Project Developer](#project-developer)
+8. [Project Developer](#project-developer)
 
-
-<br>
 <br>
 
 ## Project installation
@@ -73,10 +64,10 @@ Before running the backend of this application, make sure you have the following
 
 Once you have installed the dependencies, follow these steps to configure and run the backend:
 
-1. Clone the repository: `git clone https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Proyect-ISDI-Coders-Back.git`
+1. Clone the repository: `git clone https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Back.git`
 <br>
 
-2. Navigate to the project directory: `cd 2023-04-Kevin-Schans-Final-Proyect-ISDI-Coders-Back.git`
+2. Navigate to the project directory: `cd 2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Back.git`
 <br>
 
 3. Install dependencies: `npm install`
@@ -88,13 +79,11 @@ Once you have installed the dependencies, follow these steps to configure and ru
 5. Start the server: `npm run server`
 
 <br>
-<br>
 
 ## Link to Frontend Repository
 
-https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Proyect-ISDI-Coders-Front
+https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Front
 
-<br>
 <br>
 
 ## Project status
@@ -103,7 +92,6 @@ https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Proyect-ISDI-Cod
 
 ![Badge en Desarrollo](https://img.shields.io/badge/STATUS-UNDER%20DEVELOPMENT-red)
 
-<br>
 <br>
 
 ## Features
@@ -137,7 +125,6 @@ The ***administrator*** will be able to:
 - **Delete** a course. In the same way as the previous link, next to the Edit button, a button will be rendered on the item's card to delete it from the list and from the database.
 
 <br>
-<br>
 
 ## Endpoints
 
@@ -163,7 +150,6 @@ The ***administrator*** will be able to:
 | DELETE | /danceCourses/:id       | Delete a single danceCourse by ID.
 
 <br>
-<br>
 
 ## Contribution
 
@@ -183,7 +169,6 @@ If you want to contribute to this project, follow these steps:
 
 5. Send a pull request to the original repository.
 
-<br>
 <br>
 
 ## Project developer
