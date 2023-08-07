@@ -38,11 +38,11 @@ In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create
 
 2. [Project installation](#project-installation)
 
-3. [Link to Frontend Repository](#link-to-frontend-repository)
+3. [Features](#features)
 
-4. [Project status](#project-status)
+4. [Link to Frontend Repository](#link-to-frontend-repository)
 
-5. [Features](#features)
+5. [Project status](#project-status)
 
 6. [Endpoints](#endpoints)
 
@@ -80,20 +80,6 @@ Once you have installed the dependencies, follow these steps to configure and ru
 
 <br>
 
-## Link to Frontend Repository
-
-https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Front
-
-<br>
-
-## Project status
-
-<br>
-
-![Badge en Desarrollo](https://img.shields.io/badge/STATUS-UNDER%20DEVELOPMENT-red)
-
-<br>
-
 ## Features
 
 <br>
@@ -123,6 +109,20 @@ The ***administrator*** will be able to:
 - **Edit** an existing course. As an administrator, in each item of the list you will be able to see a button to edit it. This button will navigate to a form where it will dynamically collect the existing data of that item, so that you can modify them as you wish. Then, by clicking on **Update** button, the item will be permanently updated.
 
 - **Delete** a course. In the same way as the previous link, next to the Edit button, a button will be rendered on the item's card to delete it from the list and from the database.
+
+<br>
+
+## Link to Frontend Repository
+
+https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Front
+
+<br>
+
+## Project status
+
+<br>
+
+![Badge en Desarrollo](https://img.shields.io/badge/STATUS-UNDER%20DEVELOPMENT-red)
 
 <br>
 
