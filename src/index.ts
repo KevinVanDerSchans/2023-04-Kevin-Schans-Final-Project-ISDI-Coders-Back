@@ -6,7 +6,7 @@ import { dbConnect } from './db/db.connect.js';
 const debug = createDebug('PF');
 
 dotenv.config();
-const PORT = process.env.PORT || 4545;
+const PORT = process.env.PORT || 9999;
 
 const server = http.createServer(app);
 
