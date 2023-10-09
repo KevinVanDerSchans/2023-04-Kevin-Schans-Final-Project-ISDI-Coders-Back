@@ -13,6 +13,7 @@ export class DanceCourseRepo implements Repository<DanceCourse> {
 
   async query(): Promise<DanceCourse[]> {
     const allData = await DanceCourseModel.find().exec()
+    console.log(allData)
     return allData;
   };
 
