@@ -1,14 +1,12 @@
 import createDebug from "debug";
-import { Repository } from "./repository.js";
 import { DanceCourse } from "../entities/danceCourse.js";
 import { DanceCourseModel } from "./danceCourse.mongo.model.js";
 import { HttpError } from "../types/http.error.js";
-
 const debug = createDebug("FP: DanceCourseRepo");
 
-export class DanceCourseRepo implements Repository<DanceCourse> {
+export class DanceCourseRepo {
   constructor() {
-    debug("Instantiated");
+    debug("Instantiated", DanceCourseModel);
   };
 
   async query(): Promise<DanceCourse[]> {

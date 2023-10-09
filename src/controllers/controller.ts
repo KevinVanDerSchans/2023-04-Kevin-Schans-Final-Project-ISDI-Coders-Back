@@ -5,13 +5,11 @@ import { ApiResponse } from '../types/response.api';
 export abstract class Controller<T extends { id: string | number }> {
   public repo!: Repository<T>;
 
-  async query(_req: Request, resp: Response, next: NextFunction) {
+  async query(req: Request, resp: Response, next: NextFunction) {
     try {
       const items = await this.repo.query();
-      const response: ApiResponse = {
+      const response: Partial<ApiResponse> = {
         items,
-        page: 1,
-        count: items.length,
       };
       resp.send(response);
 
