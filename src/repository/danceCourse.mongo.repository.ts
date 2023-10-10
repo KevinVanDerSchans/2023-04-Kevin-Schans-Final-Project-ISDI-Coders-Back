@@ -11,7 +11,6 @@ export class DanceCourseRepo {
 
   async query(): Promise<DanceCourse[]> {
     const allData = await DanceCourseModel.find().exec()
-    console.log(allData)
     return allData;
   };
 
