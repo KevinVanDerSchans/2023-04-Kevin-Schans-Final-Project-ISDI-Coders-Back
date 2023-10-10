@@ -43,3 +43,5 @@ server.on('listening', () => {
 server.on('error', (error) => {
   console.log(`Error ${error.message}`);
 });
+
+app.listen(PORT);
