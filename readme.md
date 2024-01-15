@@ -1,6 +1,6 @@
-# Alex & Melanie -  Backend | Node.js / Express.js / MongoDB
+# Alex & Melanie -  Freelancer project
 
-## Kevin van der Schans | ISDI Coders Final Project 2023
+## Backend | Node.js / Express.js / MongoDB
 
 <br>
 
@@ -10,7 +10,7 @@
 
 <br>
 
-**_Alex & Melanie_** is a Desktop API WEB of an **e-commerce of online courses of Latin dances**. 
+**_Alex & Melanie_** is a Desktop API Web of an **e-commerce of online courses of Latin dances**. 
 
 The user will be able to register and log in to the website, where they will be able to view 24 different types of dance courses.
 
@@ -64,10 +64,10 @@ Before running the backend of this application, make sure you have the following
 
 Once you have installed the dependencies, follow these steps to configure and run the backend:
 
-1. Clone the repository: `git clone https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Back.git`
+1. Clone the repository: `git clone https://github.com/KevinVanDerSchans/frontend-alex-melanie.git`
 <br>
 
-2. Navigate to the project directory: `cd 2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Back.git`
+2. Navigate to the project directory: `cd frontend-alex-melanie.git`
 <br>
 
 3. Install dependencies: `npm install`
@@ -84,10 +84,6 @@ Once you have installed the dependencies, follow these steps to configure and ru
 
 <br>
 
-In this ***first phase*** of the project...
-
-<br>
-
 The ***user*** will be able to:
 
 - **Register** as a user and **log in** to the web site.
@@ -96,7 +92,6 @@ The ***user*** will be able to:
 
 - If the user decides to click on any of them, a **Details** page will be dynamically created to display the **details** of that course.
 
-- In the following implementations of the ***first phase*** the user will be able to bookmark any course and have a list of his own.
 
 <br>
 
@@ -114,7 +109,7 @@ The ***administrator*** will be able to:
 
 ## Link to Frontend Repository
 
-https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Coders-Front
+https://github.com/KevinVanDerSchans/frontend-alex-melanie.git
 
 <br>
 
@@ -122,7 +117,7 @@ https://github.com/KevinVanDerSchans/2023-04-Kevin-Schans-Final-Project-ISDI-Cod
 
 <br>
 
-![Badge en Desarrollo](https://img.shields.io/badge/STATUS-UNDER%20DEVELOPMENT-red)
+![COMPLETED](https://img.shields.io/badge/COMPLETED-green.svg)
 
 <br>
 
