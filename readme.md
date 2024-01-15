@@ -16,6 +16,8 @@ The user will be able to register and log in to the website, where they will be 
 
 In addition, it has a user with ADMINISTRATOR role to perform a **CRUD** (create, edit and delete a course) to update the content.
 
+<br>
+
 ### The backend of this application is built with Node.js, Express.js and TypeScript; according to the DDD (Domain-Driven-Design) architecture pattern. It is responsible for:
 
 - Provide the logic and functionality necessary for its correct operation.
@@ -65,16 +67,12 @@ Before running the backend of this application, make sure you have the following
 Once you have installed the dependencies, follow these steps to configure and run the backend:
 
 1. Clone the repository: `git clone https://github.com/KevinVanDerSchans/frontend-alex-melanie.git`
-<br>
 
 2. Navigate to the project directory: `cd frontend-alex-melanie.git`
-<br>
 
 3. Install dependencies: `npm install`
-<br>
 
 4. Set environment variables: Create an .env file in the root directory of the project and set the required environment variables. See the .env.example file for a list of required variables.
-<br>
 
 5. Start the server: `npm run server`
 
@@ -151,16 +149,12 @@ https://github.com/KevinVanDerSchans/frontend-alex-melanie.git
 If you want to contribute to this project, follow these steps:
 
 1. Perform a fork to the repository.
-<br>
 
 2. Create a branch for your feature or bugfix: `git checkout -b feature/your-feature-name`
-<br>
 
 3. Make the necessary changes and commits:  `git commit -am 'Add some feature'`
-<br>
 
 4. Push to branch: `git push origin feature/your-feature-name`
-<br>
 
 5. Send a pull request to the original repository.
 
